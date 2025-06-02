@@ -1,6 +1,7 @@
 package org.cpl_cursos.ejercicioClase_VII_spring_jdbc;
 
 import org.cpl_cursos.ejercicioClase_VII_spring_jdbc.DTOs.EmpleadoDTOLista;
+import org.cpl_cursos.ejercicioClase_VII_spring_jdbc.DTOs.VentasEmpleadoDTO;
 import org.cpl_cursos.ejercicioClase_VII_spring_jdbc.repositorios.EmpleadoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -23,7 +24,6 @@ public class EjercicioClaseViiSpringJdbcApplication implements ApplicationRunner
 
 	@Override
 	public void run(ApplicationArguments args) {
-		// Creamos un Map para poder poner una cabecera con el nombre de la ciudad
 		List<EmpleadoDTOLista> listaEmpleados = empleadoRepo.findAll();
 		// Procesamos la lista de empleados para rellenar el Map
 		Map<String, List<EmpleadoDTOLista>> mapEmpleados = listaEmpleados.stream()
@@ -33,6 +33,21 @@ public class EjercicioClaseViiSpringJdbcApplication implements ApplicationRunner
 			System.out.println("*** " + ciudad.toUpperCase() + " ***");
 			empleados.forEach(this::imprimirEmpleado);
 			System.out.println();
+		});
+		// Procesamos la lista de ventas
+		List<VentasEmpleadoDTO> listaVentas = empleadoRepo.findAllVentas();
+		System.out.println("\n=== VENTAS POR EMPLEADO ===");
+		// Cabecera
+		System.out.printf("%-8s %-30s %-20s %-20s %-15s%n",
+				"CÓDIGO", "NOMBRE COMPLETO", "CIUDAD", "PUESTO", "TOTAL VENTAS");
+		// datos
+		listaVentas.forEach(venta -> {
+			System.out.printf("%-8d %-30s %-20s %-20s €%-14.2f%n",
+					venta.getCodigoEmpleado(),
+					venta.getNombreCompleto(),
+					venta.getCiudadOficina(),
+					venta.getPuesto(),
+					venta.getTotalVentas());
 		});
 	}
 
