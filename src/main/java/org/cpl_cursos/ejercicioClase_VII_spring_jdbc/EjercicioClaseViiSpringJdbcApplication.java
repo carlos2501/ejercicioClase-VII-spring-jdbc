@@ -2,7 +2,6 @@ package org.cpl_cursos.ejercicioClase_VII_spring_jdbc;
 
 import org.cpl_cursos.ejercicioClase_VII_spring_jdbc.DTOs.EmpleadoDTOLista;
 import org.cpl_cursos.ejercicioClase_VII_spring_jdbc.repositorios.EmpleadoRepo;
-import org.cpl_cursos.ejercicioClase_VII_spring_jdbc.repositorios.OficinaRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -32,15 +31,17 @@ public class EjercicioClaseViiSpringJdbcApplication implements ApplicationRunner
 		// Listamos los empleados de la oficina de cada ciudad
 		mapEmpleados.forEach((ciudad, empleados) -> {
 			System.out.println("*** " + ciudad.toUpperCase() + " ***");
-			empleados.forEach(empleado -> {
-				System.out.printf("  - %s %s %s (%s) - %s%n",
-						empleado.getNombre(),
-						empleado.getApellido1(),
-						empleado.getApellido2() != null ? empleado.getApellido2() : "",
-						empleado.getPuesto(),
-						empleado.getEmail());
-			});
+			empleados.forEach(this::imprimirEmpleado);
 			System.out.println();
 		});
+	}
+
+	private void imprimirEmpleado(EmpleadoDTOLista empleado) {
+		System.out.printf("  - %s %s %s (%s) - %s%n",
+				empleado.getNombre(),
+				empleado.getApellido1(),
+				empleado.getApellido2() != null ? empleado.getApellido2() : "",
+				empleado.getPuesto(),
+				empleado.getEmail());
 	}
 }
