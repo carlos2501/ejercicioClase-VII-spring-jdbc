@@ -1,27 +1,26 @@
 package org.cpl_cursos.ejercicioClase_VII_spring_jdbc.mapeadores;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.cpl_cursos.ejercicioClase_VII_spring_jdbc.DTOs.EmpleadoDTOLista;
 import org.cpl_cursos.ejercicioClase_VII_spring_jdbc.modelos.Empleado;
 import org.springframework.stereotype.Component;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 
 @Component
 public class EmpleadoMapper {
 
-    public EmpleadoDTOLista toDTO(Empleado empleado) {
+    public EmpleadoDTOLista toDTO(ResultSet rs, int rowNum) throws SQLException {
         EmpleadoDTOLista empleDTO = new EmpleadoDTOLista();
-        empleDTO.setCodigoEmpleado(empleado.getCodigoEmpleado());
-        empleDTO.setNombre(empleado.getNombre());
-        empleDTO.setApellido1(empleado.getApellido1());
-        empleDTO.setApellido2(empleado.getApellido2());
-        empleDTO.setEmail(empleado.getEmail());
-        empleDTO.setPuesto(empleado.getPuesto());
+        empleDTO.setCodigoEmpleado(rs.getInt("codigo_empleado"));
+        empleDTO.setNombre(rs.getString("nombre"));
+        empleDTO.setApellido1(rs.getString("apellido1"));
+        empleDTO.setApellido2(rs.getString("apellido2"));
+        empleDTO.setEmail(rs.getString("email"));
+        empleDTO.setPuesto(rs.getString("puesto"));
         // necesitamos obtener la ciudad de su oficina
-
+        empleDTO.setCiudadOficina(rs.getString("ciudad_oficina"));
         return empleDTO;
 
     }
