@@ -6,3 +6,6 @@ electrónico y el puesto. Se desea que dicho listado aparezca agrupado por la ci
 * Obtener una lista ordenada por empleado del total las ventas de cada empleado. La lista debe mostrar el total de 
 ventas de cada categoria. Se incluirá el nombre y apellidos del empleado, la ciudad de su oficina y el puesto que ocupa.
 * Se utilizará una arquitectura MVC.
+* Se utilizará Spring JDBC (no usar Springg-Data-Jdbc).
+* Se usará Lombok.
+* Se usará Postgresql.
