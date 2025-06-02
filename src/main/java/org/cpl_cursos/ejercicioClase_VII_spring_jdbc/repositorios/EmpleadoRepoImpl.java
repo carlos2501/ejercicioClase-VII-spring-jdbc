@@ -1,6 +1,5 @@
 package org.cpl_cursos.ejercicioClase_VII_spring_jdbc.repositorios;
 
-import lombok.RequiredArgsConstructor;
 import org.cpl_cursos.ejercicioClase_VII_spring_jdbc.DTOs.EmpleadoDTOLista;
 import org.cpl_cursos.ejercicioClase_VII_spring_jdbc.mapeadores.EmpleadoMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -28,7 +27,6 @@ public class EmpleadoRepoImpl implements EmpleadoRepo {
             INNER JOIN oficina o ON e.codigo_oficina = o.codigo_oficina
             ORDER BY o.ciudad, e.apellido1, e.nombre
             """;
-        List<EmpleadoDTOLista> listaEmpleados = jdbcTemplate.query(qry, empleadoMapper::toDTO);
-        return listaEmpleados;
+        return jdbcTemplate.query(qry, empleadoMapper::toDTO);
     }
 }

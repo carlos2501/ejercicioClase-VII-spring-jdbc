@@ -1,7 +1,6 @@
 package org.cpl_cursos.ejercicioClase_VII_spring_jdbc.mapeadores;
 
 import org.cpl_cursos.ejercicioClase_VII_spring_jdbc.DTOs.EmpleadoDTOLista;
-import org.cpl_cursos.ejercicioClase_VII_spring_jdbc.modelos.Empleado;
 import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
