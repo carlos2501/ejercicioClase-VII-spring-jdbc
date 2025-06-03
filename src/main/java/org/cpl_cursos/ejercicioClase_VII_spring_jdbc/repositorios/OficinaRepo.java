@@ -1,7 +1,6 @@
 package org.cpl_cursos.ejercicioClase_VII_spring_jdbc.repositorios;
 
 import org.cpl_cursos.ejercicioClase_VII_spring_jdbc.DTOs.OficinaDTOLista;
-import org.cpl_cursos.ejercicioClase_VII_spring_jdbc.modelos.Oficina;
 
 import java.util.List;
 
