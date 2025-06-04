@@ -13,5 +13,6 @@ public class VentasEmpleadoDTO {
     private String nombreCompleto;
     private String ciudadOficina;
     private String puesto;
-    private BigDecimal totalVentas;
+    private BigDecimal ventasGama;
+    private String gama;
 }

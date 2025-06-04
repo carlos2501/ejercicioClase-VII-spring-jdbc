@@ -1,10 +1,10 @@
 package org.cpl_cursos.ejercicioClase_VII_spring_jdbc.controladores;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.util.Scanner;
 
-@Component
+@Controller
 public class JardineriaCtrl {
 
     private final OficinaCtrl oficinaCtrl;

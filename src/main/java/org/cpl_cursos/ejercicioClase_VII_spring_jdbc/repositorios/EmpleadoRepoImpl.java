@@ -38,18 +38,20 @@ public class EmpleadoRepoImpl implements EmpleadoRepo {
     public List<VentasEmpleadoDTO> findAllVentas() {
         // Usamos la función COALESCE para devolver un valor alternativo si el campo es NULL
         String qry = """
-            SELECT e.codigo_empleado,
+                SELECT e.codigo_empleado,
                    CONCAT(e.nombre, ' ', e.apellido1, ' ', COALESCE(e.apellido2, '')) as nombre_completo,
                    o.ciudad as ciudad_oficina,
                    e.puesto,
-                   COALESCE(SUM(p.cantidad * p.precio_unidad), 0) as total_ventas
+                   prod.gama,
+                   COALESCE(SUM(p.cantidad * p.precio_unidad), 0) as ventas_gama
             FROM empleado e
-            INNER JOIN oficina o ON e.codigo_oficina = o.codigo_oficina
-            LEFT JOIN cliente c ON e.codigo_empleado = c.codigo_empleado_rep_ventas
-            LEFT JOIN pedido pe ON c.codigo_cliente = pe.codigo_cliente
-            LEFT JOIN detalle_pedido p ON pe.codigo_pedido = p.codigo_pedido
-            GROUP BY e.codigo_empleado, e.nombre, e.apellido1, e.apellido2, o.ciudad, e.puesto
-            ORDER BY total_ventas DESC, e.apellido1, e.nombre
+                     INNER JOIN oficina o ON e.codigo_oficina = o.codigo_oficina
+                     LEFT JOIN cliente c ON e.codigo_empleado = c.codigo_empleado_rep_ventas
+                     LEFT JOIN pedido pe ON c.codigo_cliente = pe.codigo_cliente
+                     LEFT JOIN detalle_pedido p ON pe.codigo_pedido = p.codigo_pedido
+                     LEFT JOIN producto prod ON p.codigo_producto = prod.codigo_producto
+            GROUP BY e.codigo_empleado, e.nombre, e.apellido1, e.apellido2, o.ciudad, e.puesto, prod.gama
+            ORDER BY e.codigo_empleado, prod.gama, ventas_gama DESC
             """;
         return jdbcTemplate.query(qry,ventasMapper::toDTO );
     }

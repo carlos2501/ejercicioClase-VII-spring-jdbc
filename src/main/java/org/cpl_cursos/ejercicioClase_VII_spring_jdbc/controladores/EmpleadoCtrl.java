@@ -5,6 +5,7 @@ import org.cpl_cursos.ejercicioClase_VII_spring_jdbc.DTOs.VentasEmpleadoDTO;
 import org.cpl_cursos.ejercicioClase_VII_spring_jdbc.servicios.JardineriaSrvc;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -41,16 +42,32 @@ public class EmpleadoCtrl {
 
         System.out.println("\n=== VENTAS POR EMPLEADO ===");
         // Cabecera
-        System.out.printf("%-8s %-30s %-20s %-20s %-15s%n",
-                "CÓDIGO", "NOMBRE COMPLETO", "CIUDAD", "PUESTO", "TOTAL VENTAS");
-        // datos
-        listaVentas.forEach(venta -> {
-            System.out.printf("%-8d %-30s %-20s %-20s €%-14.2f%n",
-                    venta.getCodigoEmpleado(),
-                    venta.getNombreCompleto(),
-                    venta.getCiudadOficina(),
-                    venta.getPuesto(),
-                    venta.getTotalVentas());
+        System.out.printf("%-8s %-30s %-20s %-20s%n",
+                "CÓDIGO", "NOMBRE COMPLETO", "CIUDAD", "PUESTO");
+        // Creamos un Map con el código de empleado como clave y una lista de ventasEmpleadoDTO como valor de cada clave
+        Map<Integer, List<VentasEmpleadoDTO>> ventasEmpleado = listaVentas.stream()
+                        .collect(Collectors.groupingBy(VentasEmpleadoDTO::getCodigoEmpleado));
+        // Recorremos el Map pata listarlo por código de empleado y otra sub-lista por gama
+        ventasEmpleado.forEach((codEmp, ventas) -> {
+            // Leemos el primer elemento de la lista de ventas para obtener los datos del empleado
+            VentasEmpleadoDTO primeraVenta = ventas.getFirst();
+            // los presentamos en pantalla
+            System.out.printf("%-8d %-30s %-20s %-20s%n",
+                    primeraVenta.getCodigoEmpleado(),
+                    primeraVenta.getNombreCompleto(),
+                    primeraVenta.getCiudadOficina(),
+                    primeraVenta.getPuesto()
+            );
+            // Ponemos al cero el total de ventas del empleado
+            BigDecimal totalVentasEmpleado = BigDecimal.ZERO;
+            // procesamos la lista de ventas para presentar cada gama
+            for(VentasEmpleadoDTO venta : ventas) {
+                System.out.println("Gama: " + venta.getGama() + " -> " + venta.getVentasGama());
+                totalVentasEmpleado = totalVentasEmpleado.add(venta.getVentasGama());
+            }
+
+            // Muestro el total de ventas del empleado
+            System.out.println("TOTAL VENTAS DE " + primeraVenta.getNombreCompleto()+ " --> " + totalVentasEmpleado);
         });
 
         esperarEnter();

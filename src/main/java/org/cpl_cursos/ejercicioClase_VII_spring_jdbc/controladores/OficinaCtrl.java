@@ -3,6 +3,7 @@ package org.cpl_cursos.ejercicioClase_VII_spring_jdbc.controladores;
 import org.cpl_cursos.ejercicioClase_VII_spring_jdbc.DTOs.OficinaDTOLista;
 import org.cpl_cursos.ejercicioClase_VII_spring_jdbc.servicios.JardineriaSrvc;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 import java.util.Scanner;

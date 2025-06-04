@@ -15,7 +15,8 @@ public class VentasMapper {
         ventasDTO.setNombreCompleto(rs.getString("nombre_completo"));
         ventasDTO.setCiudadOficina(rs.getString("ciudad_oficina"));
         ventasDTO.setPuesto(rs.getString("puesto"));
-        ventasDTO.setTotalVentas(rs.getBigDecimal("total_ventas"));
+        ventasDTO.setVentasGama(rs.getBigDecimal("ventas_gama"));
+        ventasDTO.setGama(rs.getString("gama"));
         return ventasDTO;
     }
 }
